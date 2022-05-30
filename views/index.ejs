@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Page Title</title>
+
+<!-- 網頁編碼 -->
+<meta charset="UTF-8">
+
+<!-- 定義網頁描述 網頁關鍵字(被搜尋引擎偵測) 作者 -->
+<meta name="description" content="effective to save your money">
+<meta name="keywords" content="save money">
+<meta name="author" content="林健昌">
+
+<!-- 可以讓頁面寬度跟裝置寬度一樣 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 此為瀏覽器標齊旁邊的小圖案 -->
+<link rel="icon" type="image/x-icon" href='favicon.jpg'>
+<link rel="stylesheet" href="css/index.css">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+
+
+
+<body>
+    <input type="hidden" id="account" value= <%= account %>>
+    <ul>
+        <li><p class="Left" onclick="change_month('left');">◀</p></li>
+        <li><a href="#" id="time" onclick="change_month('middle');">日期</a></li>
+        <li><p onclick="change_month('right');">▶</p></li>
+        
+        <!-- 下拉式選單 -->
+        <li class="dropdown">
+            <p class="dropbtn">▼</a>
+            <div class="dropdown-content">
+                <p onclick="change_password();">變更密碼</p>
+                <p onclick="log_out();">登出</p>
+            </div>
+        </li>
+    </ul>
+
+
+    
+    
+    <table class="top_table">
+        <tr>
+            <td class='form_title left'>總支出<td class='form_title right'>總收入
+        <tr>
+            <td class="left"><p id="total_expense">???</p><td class="right"><p id="total_income">???</p>
+    </table><br>
+
+    
+
+    <div class="button_position">
+        <button id="add_form_button" class="w3-button w3-black" onclick="add_form_button()"><i class="fa-solid fa-circle-plus"></i></button>
+    </div>
+    
+    <div class="add_form"> 
+        <div class="w3-modal-content w3-animate-top w3-card-4">
+            <span onclick="esc_button();" 
+            class="w3-button w3-display-topright">&times;</span>
+            <div class="w3-container">
+                <p>新增</p>
+                <div class="add_form_item">
+                    <label for="item">項目:</label>
+                    <input type="text" id="item" name="item" autofocus><br>
+                </div>
+                <div class="add_form_item">
+                    <label for="price">價格:</label>
+                    <input type="number" id="price" name="price" ><br>
+                </div>
+                <div class="add_form_item">
+                    <label for="date">日期:</label><br>
+                    <input id="date" type="date"><br>
+                </div>
+                <div class="add_form_expense_income">
+                    <label for="state">支出</label>
+                    <input type="radio" id="expense" name="state" value="expense" checked>
+                    <label for="state">&ensp;&ensp;收入</label>
+                    <input type="radio" id="income" name="state" value="income" ><br>
+                </div>
+                <b id="txtHint"></b><br>
+                <p  id="add_button" onclick="add_record();">新增</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="update_form">
+        <div class="w3-modal-content w3-animate-top w3-card-4 update_form_content">
+            <span onclick="esc_button();" 
+            class="w3-button w3-display-topright">&times;</span>
+            <div class="w3-container">
+                <p>修改&刪除</p>
+                <input type="hidden" id="id" name="id">
+        
+                <div class="update_form_item">
+                    <label for="item" id="update_item_title">項目:</label>
+                    <input type="text" id="update_item" name="item" autofocus><br>
+                </div>
+        
+                <div class="update_form_item">
+                    <label for="price" id="update_price_title">價格:</label>
+                    <input type="number" id="update_price" name="price"><br>
+                </div>
+
+                <div class="update_form_item">
+                    <label for="date" id="update_date_title">日期:</label>
+                    <input type="date" id="update_date" value="2022-01-22"><br>
+                </div>
+                
+                <div class="update_form_expense_income">
+                    <label for="state">支出</label>
+                    <input type="radio" id="update_expense" name="state" value="expense" checked>
+                    <label for="state">&ensp;&ensp;收入</label>
+                    <input type="radio" id="update_income" name="state" value="income" ><br>
+                </div>
+
+                <b id="update_txtHint"></b><br>
+                <p  id="update_button" onclick="update_record();">修改</p>
+                <p  id="delete_button" onclick="delete_record(); esc_button();">刪除</p>
+                <!-- <input id="update_button" type="button" value="修改" onclick="update_record();">&ensp;&ensp; -->
+            </div>
+        </div>
+    </div>
+    
+
+    <p id="accounting_table"></p>
+
+    <!-- 引入jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/script/index.js"></script>
+    <!-- 引入icon library -->
+    <script src="https://kit.fontawesome.com/b50638cf6f.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
