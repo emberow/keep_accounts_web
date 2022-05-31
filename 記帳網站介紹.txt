@@ -1,0 +1,12 @@
+可以進行雲端記帳
+線上查詢、新增、修改、刪除資料
+
+
+使用工具:
+前端:javascript/css/html
+後端:使用express框架
+資料庫:MYsql
+使用ngrok轉換為公用ip
+使用Amazon的lightsail雲端架設伺服器
+使用RESTful API
+使用MVC架構
