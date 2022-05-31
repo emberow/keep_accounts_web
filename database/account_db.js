@@ -86,7 +86,7 @@ exports.add_account = async function(name, password){
 exports.chnage_password = async function(name, password){
   return typeorm.getConnection()
   .createQueryBuilder()
-  .update(account)
+  .update("account")
   .set({ 
     password: password, 
   })
