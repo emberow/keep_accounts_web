@@ -1,6 +1,6 @@
-const { user } = require("pg/lib/defaults");
 var typeorm = require("typeorm");
-var databaseConfig = typeorm.createConnection({
+
+typeorm.createConnection({
   type: "postgres",
   host: "localhost",
   port: 5432,
@@ -15,21 +15,16 @@ var databaseConfig = typeorm.createConnection({
 
 
 exports.get_user_data = async function(account){
-    return databaseConfig.then(
-        function(connection){
-            var postRepository = connection.getRepository("expense_income_record");
-            let data = postRepository.find({
-                select: ["id", "account", "item", "price", "date", "state"],
-                where: {account: account}
-            }).then(
-                function(data){
-                    data.forEach(element => element["price"] = Number(element["price"]));
-                    return data;
-                }
-            )
+    return typeorm.getConnection()
+    .createQueryBuilder()
+    .select("expense_income_record")
+    .from("expense_income_record", "expense_income_record")
+    .where("expense_income_record.account = :account", { account: account })
+    .getMany().then(
+        function(data){
             return data;
         }
-    )
+    );
   }
   
 exports.add_record = async function(account, item, price, date, state){
@@ -51,7 +46,7 @@ exports.update_record = async function(id,account,item,price,date,state){
     .createQueryBuilder()
     .update("expense_income_record")
     .set({account: account, item: item, price: price, date: date, state: state})
-    .where(`id = ${id}`)
+    .where("expense_income_record.id = :id", {id: id})
     .execute().then(
         function(id){
             return id["raw"][0]["id"];
@@ -64,6 +59,6 @@ exports.delete_record = async function(id, account){
     .createQueryBuilder()
     .delete()
     .from("expense_income_record")
-    .where(`id = ${id} AND account = '${account}'`)
+    .where("expense_income_record.id = :id ANd expense_income_record.account = :account", {id: id, account: account})
     .execute();
 }

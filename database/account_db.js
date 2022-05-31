@@ -14,6 +14,20 @@ var databaseConfig = typeorm.createConnection({
 });
 
 exports.login_chk = async function(name, inputPassword){
+  //使用query builder來查詢 (未解決)
+  // return typeorm.getConnection()
+  // .createQueryBuilder()
+  // .select("account")
+  // .from("account","account")
+  // .where("account.name = :name", { name: name })
+  // .getOne().then(
+  //     function(data){
+  //         console.log(data)
+  //         return data;
+  //     }
+  // );
+  
+
   return databaseConfig.then(
     //使用typeORM去資料庫拿到該使用者的真正密碼
     function(connection){
@@ -70,13 +84,17 @@ exports.add_account = async function(name, password){
 }
 
 exports.chnage_password = async function(name, password){
-  console.log(name, password)
-  return databaseConfig.then(
-    //判斷是否可以建立該帳號
-    function(connection){
-    var postRepository = connection.getRepository("account");
-    postRepository.save({name: name, password: password});
-    return true;
+  return typeorm.getConnection()
+  .createQueryBuilder()
+  .update(account)
+  .set({ 
+    password: password, 
   })
+  .where("name = :name", { name: name })
+  .execute().then(
+    function(){
+      return true;
+    }
+  );
 }
 

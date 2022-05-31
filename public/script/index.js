@@ -284,7 +284,7 @@ function local_delete_record(id){
     for(var i = 0; i < user_data.length; i++){
         for(var j = 0; j < user_data[i]['event'].length; j++){
             if(user_data[i]['event'][j]['id'] == id){
-                var price = user_data[i]['event'][j]['price'];
+                var price = Number(user_data[i]['event'][j]['price']);
                 var state = user_data[i]['event'][j]['state'];
                 if (state == 'income'){
                     user_data[i]['total_price'] -= price;
